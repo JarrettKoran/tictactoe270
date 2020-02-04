@@ -6,7 +6,7 @@ public class TicTacToe {
 
     public enum status{WIN,DRAW,CONTINUE};
 
-    public static status gameState = status.CONTINUE;
+
 
     public static int BOARDSIZE = 3;
 
@@ -67,46 +67,78 @@ public class TicTacToe {
                 replay = true;
 
         }while(replay);
-    }
 
-    public static int printStatus(int player)
-    {
+        if(firstPlayer)
+            board[row][column] = 'X';
+        else
+            board[row][column] = 'O';
 
-
-        return (0);
+        printBoard();
     }
 
     public static status gameStatus()
     {
+        status gameState = null;
+
+        char c1 = '\u0000';
+        for(int i=0;i<3;i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (board[i][j] == c1) {
+                    gameState = status.CONTINUE;
+                    return (gameState);
+                } else if(checkWin(i,j)){
+                    gameState = status.WIN;
+                    return (gameState);
+                }
+            }
+        }
+
+        gameState = status.DRAW;
+
         return (gameState);
+    }
+
+    public static boolean checkWin(int row,int column)
+    {
+        char c1 = '\u0000';
+
+        if(board[row][0] == board[row][1] && board[row][0] == board[row][2] && board[row][0] != c1)
+            return true;
+        if(board[0][column] == board[1][column] && board[0][column] == board[2][column] && board[1][column] != c1)
+            return true;
+        if(board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[1][1] != c1)
+            return true;
+        if(board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[1][1] != c1)
+            return true;
+
+        return false;
     }
 
     public static void printBoard()
     {
-        System.out.println("-------------");
-
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            System.out.print("| ");
-            for(int z = 0; z < 3; z++)
+            System.out.print("|");
+            for (int j = 0; j < 3; j++)
             {
-                System.out.print(board[i][z] + " | ");
+                System.out.print(board[i][j] + "|");
             }
+            System.out.println();
         }
-
-        System.out.println();
-        System.out.println("-------------");
-    }
-
-    public static void printSymbol(int column, char value)
-    {
-
     }
 
     //This method will check if it's a valid move
     public static boolean validMove(int row,int column)
     {
-        if(board[row][column] == ' ')
+        if(row > 2 || column > 2)
+        {
+            System.out.println("That is not a valid move!");
+            return false;
+        }
+        char c1 = '\u0000';
+        if(board[row][column] == c1)
             return true;
         else
         {
