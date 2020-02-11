@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.time.chrono.JapaneseChronology;
-
 
 public class barChart extends JFrame {
 
@@ -50,5 +48,7 @@ public class barChart extends JFrame {
         f.show();
 
     }
+
+
 
 }
